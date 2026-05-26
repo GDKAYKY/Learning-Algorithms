@@ -1,19 +1,18 @@
-fn main() {
-    print!("Enter first number: ");
-    let mut x = String::new();
-    std::io::stdin().read_line(&mut x).unwrap();
-    let x: i32 = x.trim().parse().unwrap();
-
-    print!("Enter second number: ");
-    let mut y = String::new();
-    std::io::stdin().read_line(&mut y).unwrap();
-    let y: i32 = y.trim().parse().unwrap();
-
+pub fn main() {
+    let x: i32 = read_input("Enter first number: ");
+    let y: i32 = read_input("Enter second number: ");
     let result = karatsuba_multiplication(x, y);
     println!("The product of {} and {} is {}", x, y, result);
 }
 
-fn count_digits(mut n: i32) -> i32 {
+pub fn read_input(prompt: &str) -> i32 {
+    print!("{}", prompt);
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+    input.trim().parse().unwrap()
+}
+
+pub fn count_digits(mut n: i32) -> i32 {
     if n == 0 {
         return 1;
     }
@@ -31,7 +30,7 @@ fn count_digits(mut n: i32) -> i32 {
     return count;
 }
 
-fn karatsuba_multiplication(x: i32, y: i32) -> i32 {
+pub fn karatsuba_multiplication(x: i32, y: i32) -> i32 {
     let n = count_digits(x).max(count_digits(y));
     // Split X and Y
     let a = x / n; // Higher half of x
